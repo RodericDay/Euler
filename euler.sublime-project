@@ -1,0 +1,22 @@
+{
+    "build_systems":
+    [
+        {
+            "name": "Euler (Python)",
+            "cmd": ["python profile.py $file"],
+            "shell": true,
+            "selector": "source.python",
+            "env": {
+                "PATH": "/Users/roderic/Developer/anaconda3/bin:$PATH",
+                "LANG": "en_US.UTF-8"
+            }
+        }
+    ],
+
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	]
+}
