@@ -54,7 +54,7 @@ if os.path.basename(args.filename) == __file__:
     for path in [path for path in os.listdir() if path.startswith('problem')]:
         try:
             idx = int(re.findall(r'problem(\d{5})', path)[0])
-            ans = check_output(["python", path], 10)
+            ans = check_output(["python3", path], 0.1)
             sol = solutions.get(idx-1, 'none')
             print("{:>4}".format(idx), '✓' if ans==sol else '✗', ans)
         except RuntimeError as error:
@@ -66,7 +66,7 @@ if os.path.basename(args.filename) == __file__:
 # In this case, all this script does is handle switching between regular python
 # execution and profiled execution.
 try:
-    ans = check_output(["python", args.filename], timeout=5)
+    ans = check_output(["python3", args.filename], timeout=5)
     print(ans)
     exit()
 except ProfilerDecoratorError:

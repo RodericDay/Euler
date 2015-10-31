@@ -3,7 +3,7 @@
     [
         {
             "name": "Euler (Python)",
-            "cmd": ["python profile.py $file"],
+            "cmd": ["python -u profile.py $file"],
             "shell": true,
             "selector": "source.python",
             "env": {
