@@ -33,16 +33,24 @@ def solve(string):
                     mem[j] -= {val}
             mem.pop(idx)
         except ValueError:
-            for val in opts:
-                copy = list(sudoku)
-                copy[idx] = val
-                try:
-                    return solve(copy)
-                except RuntimeError:
-                    continue
-            raise RuntimeError
+            return guess(sudoku, idx, opts)
 
     return ''.join(sudoku)
+
+def guess(sudoku, idx, opts):
+    '''
+    no cell is fully determined.
+    iterate over options for next-best
+    '''
+    copy = list(sudoku)
+    for val in opts:
+        copy[idx] = val
+        try:
+            return solve(copy)
+        except RuntimeError:
+            continue
+    raise RuntimeError
+
 
 
 with open('../resources/p096_sudoku.txt') as fp:

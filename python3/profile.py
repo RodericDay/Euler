@@ -54,7 +54,7 @@ if os.path.basename(args.filename) == __file__:
     for path in [path for path in os.listdir() if path.startswith('problem')]:
         try:
             idx = int(re.findall(r'problem(\d{5})', path)[0])
-            ans = check_output(["python3", path], 0.3)
+            ans = check_output(["python3", path], 0.5)
             sol = solutions.get(idx-1, 'none')
             print("{:>4}".format(idx), '✓' if ans==sol else '✗', ans)
         except RuntimeError as error:
@@ -77,7 +77,7 @@ except RuntimeError as error:
 
 # Try a fallback pass, with the profiler. It will swallow errors!
 try:
-    ans = check_output(["kernprof", "-lvo", "/dev/null", args.filename])
+    ans = check_output(["kernprof", "-lvo", "/dev/null", args.filename], timeout=5)
     print(ans)
 except RuntimeError:
     print("Ensure file runs properly before adding profiler.")
