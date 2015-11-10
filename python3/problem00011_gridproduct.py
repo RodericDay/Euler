@@ -3,8 +3,7 @@ What is the greatest product of four adjacent numbers in the same direction
 (up, down, left, right, or diagonally) in the 20×20 grid?
 '''
 
-import collections
-from problem00008_greatestproduct import subsequences, product
+from Euler import collections, subsequences, product
 
 def transpose(grid):
     return list(zip(*grid))

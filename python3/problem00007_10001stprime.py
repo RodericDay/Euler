@@ -2,7 +2,7 @@
 What is the 10,001st prime number?
 '''
 
-from problem00003_primefactor import prime_sieve
+from Euler import prime_sieve
 
 def nth(iterable, n):
     for i, value in enumerate(iterable):

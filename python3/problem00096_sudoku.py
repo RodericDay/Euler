@@ -52,11 +52,9 @@ def guess(sudoku, idx, opts):
     raise RuntimeError
 
 
-
 with open('../resources/p096_sudoku.txt') as fp:
     text = fp.read().replace('\n', '')
 
-ans = 0
-for string in re.findall(r'Grid \d\d([\d]{81})', text):
-    ans += int(solve(string)[:3])
+sols = [solve(string) for string in re.findall(r'\d\d([\d]{81})', text)]
+ans = sum(int(sol[:3]) for sol in sols)
 print(ans)

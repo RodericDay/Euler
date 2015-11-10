@@ -2,14 +2,8 @@
 What is the largest prime factor of the number 600851475143?
 '''
 
+from Euler import prime_sieve
 import itertools
-
-def prime_sieve(n):
-    sieve = [True] * int(n+1) # this is not identical to a list comprehension!
-    sieve[0] = sieve[1] = False
-    for p in (p for p, is_prime in enumerate(sieve) if is_prime):
-        if p**2 < n: sieve[2*p::p] = [False] * int(n/p-1)
-        yield p
 
 def prime_factors(n):
     lim = n**0.5+1
