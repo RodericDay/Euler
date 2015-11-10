@@ -66,7 +66,7 @@ if os.path.basename(args.filename) == __file__:
 # In this case, all this script does is handle switching between regular python
 # execution and profiled execution.
 try:
-    ans = check_output(["python3", args.filename], timeout=5)
+    ans = check_output(["python3", args.filename], timeout=0.5)
     print(ans)
     exit()
 except ProfilerDecoratorError:
@@ -77,7 +77,7 @@ except RuntimeError as error:
 
 # Try a fallback pass, with the profiler. It will swallow errors!
 try:
-    ans = check_output(["kernprof", "-lvo", "/dev/null", args.filename], timeout=5)
+    ans = check_output(["kernprof", "-lvo", "/dev/null", args.filename], timeout=10)
     print(ans)
 except RuntimeError:
     print("Ensure file runs properly before adding profiler.")
