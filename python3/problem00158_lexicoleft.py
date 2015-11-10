@@ -19,22 +19,13 @@ What is the maximum value of p(n)?
 '''
 
 from math import factorial
-import functools
 
 def C(n, k):
     ''' binomial(n, k) '''
     return factorial(n)//factorial(k)//factorial(n-k)
 
-@functools.lru_cache(maxsize=None)
-def T(n, k):
-    ''' triangle of eulerian numbers '''
-    if n<1: return 0
-    if n==k: return 1
-    return k * T(n-1, k) + (n-k+1) * T(n-1, k-1)
-
-n = 26
-pascal_row = [C(n, k) for k in range(2, n+1)]
-euler_row = [T(k, 2) for k in range(2, n+1)]
-my_row = [a*b for a, b in zip(pascal_row, euler_row)]
-ans = max(my_row)
+N = 26
+# descending #1 + descending #2 - alldescending
+f = lambda n: sum(C(N, k) * C(N-k, n-k) - C(N, n) for k in range(1, n))
+ans = max(f(n+1) for n in range(N))
 print(ans)
