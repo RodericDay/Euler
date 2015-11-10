@@ -18,21 +18,23 @@ character comes lexicographically after its neighbour to the left.
 What is the maximum value of p(n)?
 '''
 
-import itertools
+from math import factorial
+import functools
 
-def p_(n, N):
-    count = 0
-    for combo in itertools.permutations(range(N), n):
-        count += sum(a>b for a, b in zip(combo, combo[1:]))==1
-    return count
+def C(n, k):
+    ''' binomial(n, k) '''
+    return factorial(n)//factorial(k)//factorial(n-k)
 
-for N in range(2, 8):
-    print([p_(n, N) for n in range(2, N+1)])
+@functools.lru_cache(maxsize=None)
+def T(n, k):
+    ''' triangle of eulerian numbers '''
+    if n<1: return 0
+    if n==k: return 1
+    return k * T(n-1, k) + (n-k+1) * T(n-1, k-1)
 
-# [1]
-# [3, 4]
-# [6, 16, 11]
-# [10, 40, 55, 26]
-# [15, 80, 165, 156, 57]
-# [21, 140, 385, 546, 399, 120]
-# goal: find max of row 26
+n = 26
+pascal_row = [C(n, k) for k in range(2, n+1)]
+euler_row = [T(k, 2) for k in range(2, n+1)]
+my_row = [a*b for a, b in zip(pascal_row, euler_row)]
+ans = max(my_row)
+print(ans)
