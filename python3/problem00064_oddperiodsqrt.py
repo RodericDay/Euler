@@ -67,25 +67,7 @@ Exactly four continued fractions, for N ≤ 13, have an odd period.
 How many continued fractions for N ≤ 10000 have an odd period?
 '''
 
-from itertools import count
-from math import sqrt, floor
+from Euler import cfrac
 
-def cfrac(S):
-    alist = []
-    seen = set()
-    m = m0 = 0
-    d = d0 = 1
-    a = a0 = floor(sqrt(S))
-    if a0**2 == S: return [a0]
-    while (m, d, a) not in seen:
-        seen.update({(m, d, a)})
-        alist.append(a)
-        m = d*a - m
-        d = ( S - m**2 ) // d
-        a = ( a0 + m ) // d
-    return alist
-
-
-if __name__ == '__main__':
-    ans = sum(len(l)%2==0 for l in map(cfrac, range(10000)))
-    print(ans)
+ans = sum(len(l)%2==0 for l in map(cfrac, range(10000)))
+print(ans)

@@ -21,9 +21,7 @@ Find the value of D ≤ 1000 in minimal solutions of x
 for which the largest value of x is obtained.
 '''
 
-from problem00064_oddperiodsqrt import cfrac, sqrt
-from problem00065_convergentse import convergents
-from itertools import cycle, chain
+from Euler import sqrt, cfrac, convergents
 
 def Pell(D):
     chain = cfrac(D)
