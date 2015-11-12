@@ -14,9 +14,9 @@ var f(var x, var a) {
 int main() {
     var a = 0;
     var *counter = (var*)malloc(lim * sizeof(var)); // heap
-    while (true) {
+    while (1) {
         a += 1;
-        if (2*a+1 > lim and f(5*a-1, a) > lim) { break; }
+        if (2*a+1 > lim && f(5*a-1, a) > lim) { break; }
 
         // rainbow from left
         for (var x=2*a+1; x<3*a+1; x++) {
