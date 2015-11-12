@@ -13,19 +13,25 @@ Find the sum of digits in the numerator of the 100th convergent of the
 continued fraction for e.
 '''
 
+from itertools import cycle
 from fractions import Fraction
 
-def frac(chain):
-    # start at the bottom of the chain, work upwards
-    f = Fraction(chain.pop())
-    while chain:
-        f = chain.pop()+1/f
-    return f
+def convergents(chain):
+    first, *rest = chain
+    repeating = cycle(rest)
+    f = Fraction(first)
+    m = next(repeating)
+    fn = Fraction(1 + f*m, m)
+    for m in repeating:
+        yield f
+        n = f.numerator   + m * fn.numerator
+        d = f.denominator + m * fn.denominator
+        f, fn = fn, Fraction(n, d)
 
 
 if __name__ == '__main__':
-    nth = 100
-    chain = [2]+[n for k in range(1, 100) for n in (1, 2*k, 1)][:nth-1]
-    e = frac(chain)
-    ans = sum(int(c) for c in str(e.numerator))
+    chain = [2] + [n for k in range(1, 100) for n in (1, 2*k, 1)]
+    g = convergents(chain)
+    f = next(f for i, f in enumerate(g) if i==100-1) # getting 100th
+    ans = sum(int(c) for c in str(f.numerator))
     print(ans)
