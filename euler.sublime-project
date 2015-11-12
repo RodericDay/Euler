@@ -11,6 +11,13 @@
                 "LANG": "en_US.UTF-8"
             }
         }
+        ,
+        {
+            "name": "Euler (C)",
+            "cmd": ["gcc $file && ./a.out && rm -f a.out"],
+            "shell": true,
+            "selector": "source.c++"
+        }
     ],
 
 	"folders":
