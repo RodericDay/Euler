@@ -9,24 +9,18 @@ For example, ΣD(N) for 5 ≤ N ≤ 100 is 2438.
 Find ΣD(N) for 5 ≤ N ≤ 10000.
 '''
 
-from fractions import Fraction, gcd
-from functools import lru_cache
-
-@lru_cache(maxsize=None)
-def non_terminating_decimal(M):
-    D = M.denominator
-    while D%2==0:
-        D //= 2
-    while D%5==0:
-        D //= 5
-    return D != 1
+from math import log
 
 ans = 0
-k = 2
-f = lambda N, k: Fraction(N, k)**k
+k = 1
+f = lambda N, k: k * log(N/k)
 for N in range(5, 10001):
     A, B = f(N, k), f(N, k+1)
     M = max(A, B)
-    if B > A: k += 1
-    ans += N if non_terminating_decimal(M) else -N
+    if B > A:
+        k += 1
+        r = k
+        while r%2==0: r//=2
+        while r%5==0: r//=5
+    ans += N if N%r else -N
 print(ans)
