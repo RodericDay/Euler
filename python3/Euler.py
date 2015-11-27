@@ -1,4 +1,5 @@
 from math import sqrt, ceil, floor
+import random
 import itertools
 import functools
 import operator
@@ -30,6 +31,38 @@ def prime_sieve(n):
     for p in (p for p, is_prime in enumerate(sieve) if is_prime):
         if p**2 < n: sieve[2*p::p] = [False] * int(n/p-1)
         yield p
+
+@functools.lru_cache(maxsize=None)
+def is_prime(n, k=5):
+    '''
+    Miller-Rabin probabilistic primality test.
+    Credit to Anuvrat Singh for original
+
+    A return value of False means n is certainly not prime.
+    A return value of True means n is very likely a prime.
+    Larger k means more rigorous testing.
+
+    >>> is_prime(32416190071)
+    True
+    '''
+    # some obvious cases
+    if n <= 1:      return False
+    if n == 2:      return True
+    if n % 2 == 0:  return False
+
+    # find combination that fulfills: n-1 == d * 2**s
+    s = next(s for s in range(n-1) if (n-1)/2**s%2)
+    d = (n-1) // 2**s
+
+    # if base a is witness to n, n is definitely composite
+    def witness(a, d, n, s):
+        A =  pow(a, d, n) == 1
+        B = (pow(a, 2 ** i * d, n) == n - 1 for i in range(s))
+        return not A and not any(B)
+
+    # check for witnesses based on rigor criterion
+    sample = (random.randrange(2, n) for i in range(k))
+    return not any(witness(a, d, n, s) for a in sample)
 
 def convergents(chain):
     '''
