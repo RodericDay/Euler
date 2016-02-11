@@ -18,7 +18,7 @@ def product(iterable):
     >>> product([3, 3, 5])
     45
     '''
-    return functools.reduce(operator.mul, iterable)
+    return functools.reduce(operator.mul, iterable, 1)
 
 def prime_sieve(n):
     '''
