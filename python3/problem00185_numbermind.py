@@ -6,7 +6,7 @@ import re
 with open('../resources/p185_numbermind.txt') as fp:
     known = [(a, int(b)) for a, b in (re.findall(r'\d+', line) for line in fp)]
 
-known = [
+_known = [
   ('90342', 2),
   ('70794', 0),
   ('39458', 2),
@@ -15,16 +15,15 @@ known = [
   ('12531', 1),
 ] # 39542
 
-@profile
 def knapsack(goals, carry=''):
-    print(carry)
+    i = len(carry)
+    if i==3:
+        print(carry)
+
     if all(g==0 for g in goals):
         return carry
 
-    i = len(carry)
     for j in range(10):
-        if contrib[i][j]==0: continue
-
         new_goals = []
         for guess, goal in zip(guesses, goals):
             n = goal - (str(j)==guess[i])
