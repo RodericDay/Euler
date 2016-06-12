@@ -13,6 +13,17 @@
         }
         ,
         {
+            "name": "Euler (PyPy)",
+            "cmd": ["pypy3 $file"],
+            "shell": true,
+            "selector": "source.python",
+            "env": {
+                "PATH": "/usr/local/bin:$PATH",
+                "LANG": "en_US.UTF-8"
+            }
+        }
+        ,
+        {
             "name": "Euler (C)",
             "cmd": ["gcc $file && ./a.out && rm -f a.out"],
             "shell": true,
